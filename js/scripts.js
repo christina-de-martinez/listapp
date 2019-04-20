@@ -2,7 +2,7 @@
 const clear = document.querySelector(".clear");
 const dateElement = document.getElementById("date");
 const list = document.getElementById("list");
-const input = document.getElementById("input");
+const input = document.getElementById("typeditem");
 
 // Class names
 const CHECK = "fa-check-circle";
@@ -24,7 +24,6 @@ dateElement.innerHTML = today.toLocaleDateString("en-US", options);
 
 // Add to-do function
 function addTodo(todo, id, done, trash){
-//  const list = document.getElementById("list");
 
   if (trash){ return; }
 
@@ -37,15 +36,22 @@ function addTodo(todo, id, done, trash){
                 </li>`;
   const position = "beforeend";
   list.insertAdjacentHTML(position, item);
+  console.log('Item added to the list')
 }
 
-// Add the item to the list when the user hits enter
-document.addEventListener("keyup", function(even){
-  if (event.keyCode == 13){
-    const todo = input.value;
+$('#typeditem').on('input', function() {
+console.log('New text added');
+});
 
+
+// Add the item to the list when the user hits enter
+document.addEventListener("keyup", function(event){
+  if (event.keyCode == 13){
+    console.log('Enter key pressed')
+    console.log(input.value);
+    const todo = input.value;
     // Check whether the input is empty
-    if (todo){
+//    if (todo){
       addTodo(todo, id, false, false);
 
       LIST.push({
@@ -54,12 +60,16 @@ document.addEventListener("keyup", function(even){
         done: false,
         trash: false
       });
-        console.log(todo, LIST);
+      console.log('LIST function ran');
       id++;
-    }
-    input.value = "";
+//    }
+//    input.value = "";
   }
 });
+
+document.getElementById("button-submit").addEventListener('click',function(){
+  console.log('Button clicked');
+})
 
 // addTodo("Coffee", 1, false, false);
 // addTodo("Something else", 2, false, false);
